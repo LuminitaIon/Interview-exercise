@@ -35,7 +35,8 @@ function App() {
       "december": [],
     }
 
-    
+    const monthsArr = ["january", "february", "march", "april",
+        "may", "june", "july", "august", "september", "octomber", "november", "december"]
 
     data.allPosts.map(item => {
       let date = new Date(Number(item['createdAt']))
@@ -99,7 +100,7 @@ function App() {
       const width = 500;
       const height = 500;
       const margin = { top: 24, bottom: 24, left: 24, right: 24 };
-
+      const purple = '#a44afe';
 
       const xMax = width - margin.left - margin.right;
       const yMax = height - margin.top - margin.bottom;
@@ -123,6 +124,12 @@ function App() {
       const xPoint = compose(xScale, x);
       const yPoint = compose(yScale, y);
 
+      const dateScale = scaleLinear({
+        range: [0, width],
+        domain: monthsArr,
+        nice: true
+      })
+
       return (
         <div className="App">
           <h1> Posts Statistics </h1>
@@ -136,12 +143,23 @@ function App() {
                     y={yMax - barHeight}
                     height={barHeight}
                     width={xScale.bandwidth()}
-                    fill="#fc2e1c"
+                    fill="purple"
                   />
                 </Group>
               );
             })}
-
+            <AxisBottom 
+              scale={dateScale}
+              stroke={'#EDF2F7'}
+              tickStroke={'#EDF2F7'}
+              tickTextFill={'#EDF2F7'}
+              top={height}
+              tickLabelProps={() => ({
+                  fill: '#EDF2F7',
+                  fontSize: 11,
+                  textAnchor: 'middle',
+              })} 
+            />
           </svg>
         </div>
       );

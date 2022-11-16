@@ -9,7 +9,7 @@ import { scaleLinear, scaleBand } from '@visx/scale';
 import { AxisBottom } from '@visx/axis';
 
 const GET_POSTS = gql`{
-  allPosts(count:10000) {
+  allPosts(count:40000) {
     createdAt,
     title
   }
@@ -106,7 +106,7 @@ function App() {
       const yMax = height - margin.top - margin.bottom;
 
       const x = dates => dates.id;
-      const y = dates => +dates.frequency * 100;
+      const y = dates => +dates.frequency;
 
       const xScale = scaleBand({
         range: [0, xMax],
@@ -143,23 +143,11 @@ function App() {
                     y={yMax - barHeight}
                     height={barHeight}
                     width={xScale.bandwidth()}
-                    fill="purple"
+                    fill={purple}
                   />
                 </Group>
               );
             })}
-            <AxisBottom 
-              scale={dateScale}
-              stroke={'#EDF2F7'}
-              tickStroke={'#EDF2F7'}
-              tickTextFill={'#EDF2F7'}
-              top={height}
-              tickLabelProps={() => ({
-                  fill: '#EDF2F7',
-                  fontSize: 11,
-                  textAnchor: 'middle',
-              })} 
-            />
           </svg>
         </div>
       );
@@ -175,3 +163,16 @@ function App() {
 }
 
 export default App;
+
+// <AxisBottom 
+// scale={dateScale}
+// stroke={'#EDF2F7'}
+// tickStroke={'#EDF2F7'}
+// tickTextFill={'#EDF2F7'}
+// top={height}
+// tickLabelProps={() => ({
+//     fill: '#EDF2F7',
+//     fontSize: 11,
+//     textAnchor: 'middle',
+// })} 
+// />
